@@ -1,0 +1,47 @@
+# Copyright © 2017 dragonSaberCaptain. All rights reserved.
+# @Description: 整个项目的配置文件
+# @author: dragonSaberCaptain
+# @date: 2018/5/3 14:51 星期四
+server:
+  #服务器端口
+  port: 81
+  max-http-header-size: 3145728
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  application:
+    name: micro
+  profiles:
+    active: mysql
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+  session:
+#    加入spring session 配置
+    store-type: redis
+  mvc:
+    view:
+      prefix: /jsp/
+      suffix: .jsp
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+  http:
+    encoding.charset: UTF-8
+    encoding.force: true
+    encoding:
+      enabled: true
+  transaction:
+    rollback-on-commit-failure: true
+  messages:
+    encoding: UTF-8
+mybatis:
+  typeAliasesPackage: com.jskj.micro.model
+  mapperLocations: classpath:/mappers/*.xml,classpath:/mappers/system/*.xml
+  config-location: classpath:/mybatis/mybatis-config.xml
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    org.springframework.security: debug

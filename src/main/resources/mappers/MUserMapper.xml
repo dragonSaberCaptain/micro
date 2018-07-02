@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jskj.micro.dao.MUserDAO">
+    <resultMap id="BaseResultMap" type="com.jskj.micro.model.micro.MUser">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="create_id" jdbcType="BIGINT" property="createId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="is_delete" jdbcType="VARCHAR" property="isDelete"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="update_id" jdbcType="BIGINT" property="updateId"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="is_caller" jdbcType="VARCHAR" property="isCaller"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="room_number" jdbcType="VARCHAR" property="roomNumber"/>
+        <result column="camera_position" jdbcType="VARCHAR" property="cameraPosition"/>
+        <result column="equipment_number" jdbcType="VARCHAR" property="equipmentNumber"/>
+        <result column="camera_direction" jdbcType="VARCHAR" property="cameraDirection"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, create_id, create_time, is_delete, remark, update_id, update_time, is_caller,
+        mobile, room_number, camera_position, equipment_number, camera_direction
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from m_user
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from m_user
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.jskj.micro.model.micro.MUser"
+            useGeneratedKeys="true">
+        insert into m_user (create_id, create_time, is_delete,
+            remark, update_id, update_time,
+            is_caller, mobile, room_number,
+            camera_position, equipment_number, camera_direction
+            )
+        values (#{createId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=VARCHAR},
+            #{remark,jdbcType=VARCHAR}, #{updateId,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP},
+            #{isCaller,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{roomNumber,jdbcType=VARCHAR},
+            #{cameraPosition,jdbcType=VARCHAR}, #{equipmentNumber,jdbcType=VARCHAR}, #{cameraDirection,jdbcType=VARCHAR}
+            )
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.jskj.micro.model.micro.MUser"
+            useGeneratedKeys="true">
+        insert into m_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="createId != null">
+                create_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="updateId != null">
+                update_id,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="isCaller != null">
+                is_caller,
+            </if>
+            <if test="mobile != null">
+                mobile,
+            </if>
+            <if test="roomNumber != null">
+                room_number,
+            </if>
+            <if test="cameraPosition != null">
+                camera_position,
+            </if>
+            <if test="equipmentNumber != null">
+                equipment_number,
+            </if>
+            <if test="cameraDirection != null">
+                camera_direction,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="createId != null">
+                #{createId,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="updateId != null">
+                #{updateId,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isCaller != null">
+                #{isCaller,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="roomNumber != null">
+                #{roomNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="cameraPosition != null">
+                #{cameraPosition,jdbcType=VARCHAR},
+            </if>
+            <if test="equipmentNumber != null">
+                #{equipmentNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="cameraDirection != null">
+                #{cameraDirection,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertBatch" keyColumn="id" keyProperty="id" parameterType="java.util.List" useGeneratedKeys="true">
+        insert into m_user (create_id, create_time, is_delete,
+        remark, update_id, update_time,
+        is_caller, mobile, room_number,
+        camera_position, equipment_number,
+        camera_direction)
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            (#{item.createId,jdbcType=BIGINT}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.isDelete,jdbcType=VARCHAR},
+            #{item.remark,jdbcType=VARCHAR}, #{item.updateId,jdbcType=BIGINT}, #{item.updateTime,jdbcType=TIMESTAMP},
+            #{item.isCaller,jdbcType=VARCHAR}, #{item.mobile,jdbcType=VARCHAR}, #{item.roomNumber,jdbcType=VARCHAR},
+            #{item.cameraPosition,jdbcType=VARCHAR}, #{item.equipmentNumber,jdbcType=VARCHAR},
+            #{item.cameraDirection,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+    <insert id="insertBatchSelective" keyColumn="id" keyProperty="id" parameterType="java.util.List"
+            useGeneratedKeys="true">
+        insert into m_user
+        (create_id, create_time, is_delete, remark, update_id, update_time, is_caller, mobile,
+        room_number, camera_position, equipment_number, camera_direction)
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="item.createId != null">
+                    #{item.createId,jdbcType=BIGINT},
+                </if>
+                <if test="item.createId == null">
+                    NULL,
+                </if>
+                <if test="item.createTime != null">
+                    #{item.createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.createTime == null">
+                    NULL,
+                </if>
+                <if test="item.isDelete != null">
+                    #{item.isDelete,jdbcType=VARCHAR},
+                </if>
+                <if test="item.isDelete == null">
+                    NULL,
+                </if>
+                <if test="item.remark != null">
+                    #{item.remark,jdbcType=VARCHAR},
+                </if>
+                <if test="item.remark == null">
+                    NULL,
+                </if>
+                <if test="item.updateId != null">
+                    #{item.updateId,jdbcType=BIGINT},
+                </if>
+                <if test="item.updateId == null">
+                    NULL,
+                </if>
+                <if test="item.updateTime != null">
+                    #{item.updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.updateTime == null">
+                    NULL,
+                </if>
+                <if test="item.isCaller != null">
+                    #{item.isCaller,jdbcType=VARCHAR},
+                </if>
+                <if test="item.isCaller == null">
+                    NULL,
+                </if>
+                <if test="item.mobile != null">
+                    #{item.mobile,jdbcType=VARCHAR},
+                </if>
+                <if test="item.mobile == null">
+                    NULL,
+                </if>
+                <if test="item.roomNumber != null">
+                    #{item.roomNumber,jdbcType=VARCHAR},
+                </if>
+                <if test="item.roomNumber == null">
+                    NULL,
+                </if>
+                <if test="item.cameraPosition != null">
+                    #{item.cameraPosition,jdbcType=VARCHAR},
+                </if>
+                <if test="item.cameraPosition == null">
+                    NULL,
+                </if>
+                <if test="item.equipmentNumber != null">
+                    #{item.equipmentNumber,jdbcType=VARCHAR},
+                </if>
+                <if test="item.equipmentNumber == null">
+                    NULL,
+                </if>
+                <if test="item.cameraDirection != null">
+                    #{item.cameraDirection,jdbcType=VARCHAR},
+                </if>
+                <if test="item.cameraDirection == null">
+                    NULL,
+                </if>
+            </trim>
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jskj.micro.model.micro.MUser">
+        update m_user
+        <set>
+            <if test="createId != null">
+                create_id = #{createId,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="updateId != null">
+                update_id = #{updateId,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isCaller != null">
+                is_caller = #{isCaller,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="roomNumber != null">
+                room_number = #{roomNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="cameraPosition != null">
+                camera_position = #{cameraPosition,jdbcType=VARCHAR},
+            </if>
+            <if test="equipmentNumber != null">
+                equipment_number = #{equipmentNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="cameraDirection != null">
+                camera_direction = #{cameraDirection,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jskj.micro.model.micro.MUser">
+        update m_user
+        set create_id = #{createId,jdbcType=BIGINT},
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+            is_delete = #{isDelete,jdbcType=VARCHAR},
+            remark = #{remark,jdbcType=VARCHAR},
+            update_id = #{updateId,jdbcType=BIGINT},
+            update_time = #{updateTime,jdbcType=TIMESTAMP},
+            is_caller = #{isCaller,jdbcType=VARCHAR},
+            mobile = #{mobile,jdbcType=VARCHAR},
+            room_number = #{roomNumber,jdbcType=VARCHAR},
+            camera_position = #{cameraPosition,jdbcType=VARCHAR},
+            equipment_number = #{equipmentNumber,jdbcType=VARCHAR},
+            camera_direction = #{cameraDirection,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!-- 基本的sql查询条件公共引用 -->
+    <sql id="searchBy">
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test=" id !=null ">
+                id = #{id,jdbcType=BIGINT}
+            </if>
+            <if test="createTime != null">
+                and <![CDATA[  create_time <= #{createTime,jdbcType=TIMESTAMP} ]]>
+            </if>
+            <if test="updateTime != null">
+                and <![CDATA[  update_time <= #{updateTime,jdbcType=TIMESTAMP} ]]>
+            </if>
+            <if test="createId != null">
+                and create_id = #{createId,jdbcType=BIGINT}
+            </if>
+            <if test="isDelete != null">
+                and is_delete = #{isDelete,jdbcType=VARCHAR}
+            </if>
+            <if test="remark != null">
+                and remark = #{remark,jdbcType=VARCHAR}
+            </if>
+            <if test="updateId != null">
+                and update_id = #{updateId,jdbcType=BIGINT}
+            </if>
+            <if test="isCaller != null">
+                and is_caller = #{isCaller,jdbcType=VARCHAR}
+            </if>
+            <if test="mobile != null">
+                and mobile = #{mobile,jdbcType=VARCHAR}
+            </if>
+            <if test="roomNumber != null">
+                and room_number = #{roomNumber,jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </sql>
+    <select id="selectBySelective" parameterType="com.jskj.micro.model.micro.MUser"
+            resultMap="BaseResultMap">
+        select
+        distinct
+        <include refid="Base_Column_List"/>
+        from m_user
+        <include refid="searchBy"/>
+    </select>
+</mapper>
+
